@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.6"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="NGPD.Manager.Services\Class1.cs">
+        <Link>NGPD.Manager.Servicesç\Class1.cs</Link>
+      </Compile>
+      <Compile Update="NGPD.Manager.Services.Contracts\Class1.cs">
+        <Link>NGPD.Manager.Data.Congtrac\Class1.cs</Link>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\NGPD.Manager.Data\NGPD.Manager.Data.csproj" />
+    </ItemGroup>
+
+</Project>
