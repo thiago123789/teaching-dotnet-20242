@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using NGPD.Manager.CrossCutting.Extensions;
 using NGPD.Manager.Data.Contracts.Base;
-using NGPD.Manager.Entities;
+using NGPD.Manager.Entities.Base;
 using NGPD.Manager.Entities.Pagination;
 
 namespace NGPD.Manager.Data;
@@ -43,7 +43,7 @@ public abstract class Repository<T> : IRepository<T>
 
         public T Update(T entity)
         {
-            entity.UpdateDate = DateTime.Now;
+            entity.LastModifiedDate = DateTime.Now;
             _context.Attach(entity).State = EntityState.Modified;
             return entity;
         }
@@ -66,7 +66,7 @@ public abstract class Repository<T> : IRepository<T>
             return await query.FirstOrDefaultAsync();
         }
 
-        public virtual async Task<T> FindByIdAsync(long id, bool includeDeleted = false)
+        public virtual async Task<T> FindByIdAsync(Guid id, bool includeDeleted = false)
         {
             return await _context.FindAsync(id);
         }
@@ -90,10 +90,10 @@ public abstract class Repository<T> : IRepository<T>
             return await query.PaginateAsync(filter);
         }
 
-        public virtual T UnDelete(long id)
+        public virtual T UnDelete(Guid id)
         {
             var entity = _context.Find(id);
-            entity.UpdateDate = DateTime.Now;
+            entity.LastModifiedDate = DateTime.Now;
             entity.IsDeleted = false;
             return this.Update(entity);
         }

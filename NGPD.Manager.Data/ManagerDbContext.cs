@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using NGPD.Manager.Data.Mapping;
 using NGPD.Manager.Entities;
+using NGPD.Manager.Entities.Base;
+using NGPD.Manager.Entities.Disponibilidade;
 
 namespace NGPD.Manager.Data;
 
@@ -9,9 +12,31 @@ public class ManagerDbContext : DbContext
     public DbSet<Empresa> Empresas;
     public DbSet<Turma> Turmas;
     public DbSet<Mentor> Mentores;
-    
-    public ManagerDbContext(DbContextOptions options) : base(options)
+    public DbSet<Squad> Squads;
+    public DbSet<Disponibilidade> Disponibilidades { get; set; }
+
+    public ManagerDbContext(DbContextOptions<ManagerDbContext> contextOptions) : base(contextOptions)
     {
+        
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfiguration(new AlunoEntityMapping());
+        modelBuilder.ApplyConfiguration(new DisponibilidadeEntityMapping());
+        modelBuilder.ApplyConfiguration(new EmpresaEntityMapping());
+        modelBuilder.ApplyConfiguration(new MentorDisponibilidadeEntityMapping());
+        modelBuilder.ApplyConfiguration(new MentorEntityMapping());
+        modelBuilder.ApplyConfiguration(new SquadDisponibilidadeEntityMapping());
+        modelBuilder.ApplyConfiguration(new SquadEntityMapping());
+        modelBuilder.ApplyConfiguration(new TurmaDisponibilidadeEntityMapping());
+        modelBuilder.ApplyConfiguration(new TurmaEntityMapping());
+
+        modelBuilder.Entity<Faculdade>()
+            .HasKey(e => e.Id);
+        modelBuilder.Entity<Faculdade>()
+            .HasMany<Turma>(e => e.Turmas);
     }
 
     public override int SaveChanges()
@@ -42,10 +67,10 @@ public class ManagerDbContext : DbContext
                     break;
                 case EntityState.Deleted:
                     ((BaseEntity)entry.Entity).IsDeleted = true;
-                    ((BaseEntity)entry.Entity).UpdateDate = DateTime.UtcNow;
+                    ((BaseEntity)entry.Entity).LastModifiedDate = DateTime.UtcNow;
                     break;
                 case EntityState.Modified:
-                    ((BaseEntity)entry.Entity).UpdateDate = DateTime.UtcNow;
+                    ((BaseEntity)entry.Entity).LastModifiedDate = DateTime.UtcNow;
                     break;
             }
         }

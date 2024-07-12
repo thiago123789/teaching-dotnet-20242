@@ -4,20 +4,25 @@ namespace NGPD.Manager.Entities.Disponibilidade;
 
 public record IntervaloTempo
 {
-    public DiaSemana WeekDay => id;
+    public DiaSemana DiaSemana => diaSemana;
     public TimeSpan From => from;
     public TimeSpan To => to;
     
-    private DiaSemana id;
+    private DiaSemana diaSemana;
     private TimeSpan from;
     private TimeSpan to;
     
-    public IntervaloTempo(DiaSemana id, TimeSpan from, TimeSpan to)
+    public IntervaloTempo(DiaSemana diaSemana, TimeSpan from, TimeSpan to)
     {
         ValidateTimeSlot(from, to);
-        this.id = id;
+        this.diaSemana = diaSemana;
         this.from = from;
         this.to = to;
+    }
+
+    protected IntervaloTempo()
+    {
+        
     }
 
     private void ValidateTimeSlot(TimeSpan from, TimeSpan to)

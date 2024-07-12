@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\NGPD.Manager.Data.Contracts\NGPD.Manager.Data.Contracts.csproj" />
+      <ProjectReference Include="..\NGPD.Manager.Services.Contracts\NGPD.Manager.Services.Contracts.csproj" />
     </ItemGroup>
 
 </Project>

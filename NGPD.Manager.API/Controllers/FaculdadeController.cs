@@ -1,6 +1,10 @@
+using Microsoft.AspNetCore.Mvc;
+
 namespace NGPD.Manager.API.Controllers;
 
-public class FaculdadeController
+[ApiController]
+[Route("[controller]")]
+public class FaculdadeController : ControllerBase
 {
     
 }

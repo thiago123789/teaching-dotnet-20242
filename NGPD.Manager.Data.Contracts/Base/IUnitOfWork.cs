@@ -4,7 +4,12 @@ namespace NGPD.Manager.Data.Contracts.Base;
 
 public interface IUnitOfWork : IDisposable
 {
-    public IAlunoRepository AlunoRepository { get; }
+    IAlunoRepository AlunoRepository { get; }
+    IEmpresaRepository EmpresaRepository { get; }
+    IDisponibilidadeRepository DisponibilidadeRepository { get; }
+    IFaculdadeRepository FaculdadeRepository { get; }
+    IMentorRepository MentorRepository { get; }
+    ISquadRepository SquadRepository { get; }
 
     /// <summary>
     /// Opens a new transaction instantly when being called.

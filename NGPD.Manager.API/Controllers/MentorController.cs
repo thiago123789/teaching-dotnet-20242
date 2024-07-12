@@ -1,6 +1,10 @@
+using Microsoft.AspNetCore.Mvc;
+
 namespace NGPD.Manager.API.Controllers;
 
-public class MentorController
+[ApiController]
+[Route("[controller]")]
+public class MentorController : ControllerBase
 {
     
 }
